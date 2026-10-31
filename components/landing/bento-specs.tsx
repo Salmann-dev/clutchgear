@@ -6,15 +6,15 @@ export function BentoSpecs() {
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case "Feather":
-        return <Feather className="w-5 h-5 text-cyan-400" />;
+        return <Feather className="w-5 h-5 text-accent" />;
       case "Crosshair":
-        return <Crosshair className="w-5 h-5 text-cyan-400" />;
+        return <Crosshair className="w-5 h-5 text-accent" />;
       case "Zap":
-        return <Zap className="w-5 h-5 text-cyan-400" />;
+        return <Zap className="w-5 h-5 text-accent" />;
       case "Activity":
-        return <Activity className="w-5 h-5 text-cyan-400" />;
+        return <Activity className="w-5 h-5 text-accent" />;
       default:
-        return <Zap className="w-5 h-5 text-cyan-400" />;
+        return <Zap className="w-5 h-5 text-accent" />;
     }
   };
 
@@ -24,8 +24,8 @@ export function BentoSpecs() {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 mb-2">
-            <span className="w-2 h-2 rounded-full bg-cyan-400" />
-            <span className="text-xs font-heading font-bold uppercase tracking-widest text-cyan-400">
+            <span className="w-2 h-2 rounded-full bg-accent" />
+            <span className="text-xs font-heading font-bold uppercase tracking-widest text-accent">
               ARCHITECTURE & TELEMETRY
             </span>
           </div>
@@ -42,15 +42,15 @@ export function BentoSpecs() {
           {BENTO_SPECS.map((spec) => (
             <div
               key={spec.id}
-              className={`rounded-2xl bg-surface-1/80 border border-white/10 hover:border-cyan-500/40 transition-all duration-300 p-8 flex flex-col justify-between shadow-[0_4px_24px_rgba(0,0,0,0.4)] ${
+              className={`rounded-2xl bg-surface-1/80 border border-white/10 hover:border-accent/40 transition-all duration-300 p-8 flex flex-col justify-between shadow-[0_4px_24px_rgba(0,0,0,0.4)] ${
                 spec.span === "col-span-2" ? "md:col-span-2" : "md:col-span-1"
               }`}
             >
               <div>
                 {/* Top Row: Tag & Icon */}
                 <div className="flex items-center justify-between gap-4 mb-6">
-                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/20">
-                    <span className="text-[11px] font-heading font-bold text-cyan-400 uppercase tracking-widest">
+                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-accent/10 border border-accent/20">
+                    <span className="text-[11px] font-heading font-bold text-accent uppercase tracking-widest">
                       {spec.tag}
                     </span>
                   </div>
@@ -66,7 +66,7 @@ export function BentoSpecs() {
                       {spec.stat}
                     </span>
                     {spec.unit && (
-                      <span className="text-xs font-heading font-bold uppercase tracking-wider text-cyan-400">
+                      <span className="text-xs font-heading font-bold uppercase tracking-wider text-accent">
                         {spec.unit}
                       </span>
                     )}

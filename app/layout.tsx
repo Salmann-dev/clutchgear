@@ -32,7 +32,7 @@ export default function RootLayout({
       lang="en"
       className={`${chakraPetch.variable} ${inter.variable} dark h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-bg-canvas text-text-primary selection:bg-cyan-500/20 selection:text-cyan-400">
+      <body className="min-h-full flex flex-col bg-bg-canvas text-text-primary selection:bg-accent/20 selection:text-accent">
         {children}
       </body>
     </html>

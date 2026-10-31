@@ -6,15 +6,15 @@ export function WhyClutchGear() {
   const getPillarIcon = (iconName: string) => {
     switch (iconName) {
       case "Trophy":
-        return <Trophy className="w-6 h-6 text-cyan-400" />;
+        return <Trophy className="w-6 h-6 text-accent" />;
       case "ShieldCheck":
-        return <ShieldCheck className="w-6 h-6 text-cyan-400" />;
+        return <ShieldCheck className="w-6 h-6 text-accent" />;
       case "Cpu":
-        return <Cpu className="w-6 h-6 text-cyan-400" />;
+        return <Cpu className="w-6 h-6 text-accent" />;
       case "Compass":
-        return <Compass className="w-6 h-6 text-cyan-400" />;
+        return <Compass className="w-6 h-6 text-accent" />;
       default:
-        return <ShieldCheck className="w-6 h-6 text-cyan-400" />;
+        return <ShieldCheck className="w-6 h-6 text-accent" />;
     }
   };
 
@@ -24,8 +24,8 @@ export function WhyClutchGear() {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 mb-2">
-            <span className="w-2 h-2 rounded-full bg-cyan-400" />
-            <span className="text-xs font-heading font-bold uppercase tracking-widest text-cyan-400">
+            <span className="w-2 h-2 rounded-full bg-accent" />
+            <span className="text-xs font-heading font-bold uppercase tracking-widest text-accent">
               PHILOSOPHY & STANDARDS
             </span>
           </div>
@@ -42,13 +42,13 @@ export function WhyClutchGear() {
           {WHY_CLUTCHGEAR_PILLARS.map((pillar) => (
             <div
               key={pillar.title}
-              className="p-6 rounded-2xl bg-surface-1/60 border border-white/5 hover:border-cyan-500/30 transition-all duration-300 flex flex-col justify-between shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:-translate-y-1"
+              className="p-6 rounded-2xl bg-surface-1/60 border border-white/5 hover:border-accent/30 transition-all duration-300 flex flex-col justify-between shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:-translate-y-1"
             >
               <div>
                 <div className="w-12 h-12 rounded-xl bg-surface-2 border border-white/5 flex items-center justify-center mb-5 shadow-inner">
                   {getPillarIcon(pillar.icon)}
                 </div>
-                <div className="text-[11px] font-heading font-bold uppercase tracking-wider text-cyan-400">
+                <div className="text-[11px] font-heading font-bold uppercase tracking-wider text-accent">
                   {pillar.subtitle}
                 </div>
                 <h3 className="text-lg font-heading font-bold text-text-primary mt-1">
@@ -60,7 +60,7 @@ export function WhyClutchGear() {
               </div>
 
               <div className="mt-6 pt-4 border-t border-white/5 flex items-center gap-1.5 text-[11px] font-heading font-bold text-text-muted uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
                 <span>CERTIFIED SPEC</span>
               </div>
             </div>

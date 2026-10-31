@@ -3,31 +3,34 @@ import { cn } from "@/lib/utils";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "checkout" | "secondary" | "ghost" | "icon";
+  variant?: "primary" | "buy" | "checkout" | "secondary" | "ghost" | "icon";
   size?: "sm" | "md" | "lg" | "icon";
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size = "md", children, ...props }, ref) => {
     const baseStyles =
-      "inline-flex items-center justify-center font-heading font-semibold tracking-wide transition-all duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed select-none active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-canvas";
+      "inline-flex items-center justify-center font-heading font-semibold tracking-wide transition-all duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed select-none active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-canvas";
 
     const variantStyles = {
-      // Primary Cyan button: Uses #080811 dark text for 14.16:1 WCAG AAA compliance!
+      // Primary Acid Green button: Uses #050505 dark text for ultra-high contrast WCAG AAA compliance!
       primary:
-        "bg-cyan-500 text-text-on-cyan hover:bg-cyan-400 active:bg-cyan-600 shadow-[0_0_16px_rgba(0,240,255,0.3)]",
-      // Checkout / Add to Cart button ONLY: Uses Rose #E11D48 with white text (4.70:1 AA)
+        "bg-accent text-text-on-accent hover:bg-accent-hover active:bg-accent-active shadow-[0_0_16px_rgba(163,255,18,0.35)]",
+      // White Buy button: Clean high-visibility White Buy Button
+      buy:
+        "bg-white text-black hover:bg-neutral-200 active:bg-neutral-300 font-bold shadow-[0_0_20px_rgba(255,255,255,0.25)]",
+      // Checkout alias for buy button
       checkout:
-        "bg-rose-600 text-text-on-rose hover:bg-rose-500 active:bg-rose-700 shadow-[0_8px_24px_rgba(225,29,72,0.38)]",
+        "bg-white text-black hover:bg-neutral-200 active:bg-neutral-300 font-bold shadow-[0_0_20px_rgba(255,255,255,0.25)]",
       // Secondary Surface button
       secondary:
-        "bg-surface-1 text-text-primary border border-white/10 hover:border-cyan-500/50 hover:text-cyan-400 hover:bg-surface-2",
+        "bg-surface-1 text-text-primary border border-white/10 hover:border-accent/50 hover:text-accent hover:bg-surface-2",
       // Ghost utility button
       ghost:
         "bg-transparent text-text-secondary hover:text-text-primary hover:bg-white/5",
       // Floating 3D HUD control button
       icon:
-        "bg-surface-1/80 backdrop-blur-md text-text-secondary border border-white/10 hover:border-cyan-500/50 hover:text-cyan-400 hover:bg-surface-2",
+        "bg-surface-1/80 backdrop-blur-md text-text-secondary border border-white/10 hover:border-accent/50 hover:text-accent hover:bg-surface-2",
     };
 
     const sizeStyles = {

@@ -1,39 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  /* Canvas & Surfaces */
-  --bg-void: #080811;
-  --bg-canvas: #0F0F23;
-  --surface-1: #14142B;
-  --surface-2: #1D1D3A;
-  --surface-3: #26264D;
-  --surface-glass: rgba(20, 20, 43, 0.72);
+  /* Canvas & Near-Black Surfaces */
+  --bg-void: #050505;
+  --bg-canvas: #0A0A0A;
+  --surface-1: #121212;
+  --surface-2: #1A1A1A;
+  --surface-3: #242424;
+  --surface-glass: rgba(18, 18, 18, 0.75);
 
   /* Borders */
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.16);
-  --border-accent: rgba(0, 240, 255, 0.40);
+  --border-accent: rgba(163, 255, 18, 0.40);
 
-  /* Primary Accent: Electric Cyan */
-  --cyan-500: #00F0FF;
-  --cyan-400: #38F9FF;
-  --cyan-600: #00C2CF;
-  --cyan-tint: rgba(0, 240, 255, 0.10);
-  --cyan-glow: 0 0 16px rgba(0, 240, 255, 0.35);
+  /* Primary Accent: Acid Green */
+  --accent: #A3FF12;
+  --accent-hover: #B5FF3B;
+  --accent-active: #8FE600;
+  --accent-tint: rgba(163, 255, 18, 0.10);
+  --accent-glow: 0 0 16px rgba(163, 255, 18, 0.35);
 
-  /* High-Conversion Action: Rose (Checkout / Add to Cart only) */
-  --rose-600: #E11D48;
-  --rose-500: #F43F5E;
-  --rose-700: #BE123C;
-  --rose-tint: rgba(225, 29, 72, 0.12);
-  --rose-aura: 0 8px 24px rgba(225, 29, 72, 0.38);
+  /* High-Conversion Action: White Buy Button */
+  --buy-bg: #FFFFFF;
+  --buy-text: #050505;
+  --buy-hover: #E5E5E5;
+  --buy-active: #D4D4D4;
+  --buy-aura: 0 8px 24px rgba(255, 255, 255, 0.25);
 
   /* Typography */
   --text-primary: #F8FAFC;
   --text-secondary: #94A3B8;
   --text-muted: #64748B;
-  --text-on-cyan: #080811;
-  --text-on-rose: #FFFFFF;
+  --text-on-accent: #050505;
+  --text-on-buy: #050505;
 
   /* Radii */
   --radius-sm: 4px;
@@ -44,32 +44,30 @@
 }
 
 @theme {
-  --color-bg-void: #080811;
-  --color-bg-canvas: #0F0F23;
-  --color-surface-1: #14142B;
-  --color-surface-2: #1D1D3A;
-  --color-surface-3: #26264D;
-  --color-surface-glass: rgba(20, 20, 43, 0.72);
+  --color-bg-void: #050505;
+  --color-bg-canvas: #0A0A0A;
+  --color-surface-1: #121212;
+  --color-surface-2: #1A1A1A;
+  --color-surface-3: #242424;
+  --color-surface-glass: rgba(18, 18, 18, 0.75);
 
   --color-border-subtle: rgba(255, 255, 255, 0.08);
   --color-border-strong: rgba(255, 255, 255, 0.16);
-  --color-border-accent: rgba(0, 240, 255, 0.40);
+  --color-border-accent: rgba(163, 255, 18, 0.40);
 
-  --color-cyan-500: #00F0FF;
-  --color-cyan-400: #38F9FF;
-  --color-cyan-600: #00C2CF;
-  --color-cyan-tint: rgba(0, 240, 255, 0.10);
+  --color-accent: #A3FF12;
+  --color-accent-hover: #B5FF3B;
+  --color-accent-active: #8FE600;
+  --color-accent-tint: rgba(163, 255, 18, 0.10);
 
-  --color-rose-600: #E11D48;
-  --color-rose-500: #F43F5E;
-  --color-rose-700: #BE123C;
-  --color-rose-tint: rgba(225, 29, 72, 0.12);
+  --color-buy-bg: #FFFFFF;
+  --color-buy-text: #050505;
 
   --color-text-primary: #F8FAFC;
   --color-text-secondary: #94A3B8;
   --color-text-muted: #64748B;
-  --color-text-on-cyan: #080811;
-  --color-text-on-rose: #FFFFFF;
+  --color-text-on-accent: #050505;
+  --color-text-on-buy: #050505;
 
   --font-heading: var(--font-chakra), sans-serif;
   --font-body: var(--font-inter), sans-serif;
@@ -82,12 +80,12 @@
 
   --shadow-surface-1: 0 4px 20px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
   --shadow-surface-2: 0 20px 48px -4px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
-  --shadow-cyan-halo: 0 0 0 2px #0F0F23, 0 0 0 4px #00F0FF;
-  --shadow-rose-aura: 0 8px 24px -2px rgba(225, 29, 72, 0.40), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+  --shadow-accent-halo: 0 0 0 2px #0A0A0A, 0 0 0 4px #A3FF12;
+  --shadow-buy-aura: 0 8px 24px -2px rgba(255, 255, 255, 0.30), 0 0 0 1px rgba(255, 255, 255, 0.4) inset;
 }
 
 body {
-  background-color: #0F0F23;
+  background-color: #0A0A0A;
   color: #F8FAFC;
   font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
@@ -96,24 +94,24 @@ body {
 }
 
 ::selection {
-  background: rgba(0, 240, 255, 0.25);
-  color: #00F0FF;
+  background: rgba(163, 255, 18, 0.25);
+  color: #A3FF12;
 }
 
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #080811;
+  background: #050505;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1D1D3A;
+  background: #1A1A1A;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #26264D;
+  background: #242424;
 }

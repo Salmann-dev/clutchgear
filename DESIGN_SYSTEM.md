@@ -13,7 +13,7 @@ ClutchGear is engineered for esports enthusiasts and hardware purists who demand
 ### Aesthetic Directives:
 1. **Hyper-Realistic Hardware First:** The 3D viewer is the undisputed hero. Materials (matte PBT plastic, textured side grips, metallic scroll wheels, and optic lens glass) must be rendered cleanly with uncompromised clarity.
 2. **Zero Visual Noise:** Retro-futurism is expressed through typography and sharp telemetry lines—**never** through synthetic CRT scanlines, pixelated shaders, or heavy ambient lens flares that obscure product geometry.
-3. **Intentional Color Gravity:** Electric Cyan drives brand identity, interactive state discovery, and telemetry. High-conversion Rose (`#E11D48` / `#F43F5E`) is **strictly isolated to "Add to Cart" and Checkout pathways** to preserve maximum psychological contrast and conversion pull.
+3. **Intentional Color Gravity:** Acid Green (`#A3FF12`) drives brand identity, interactive state discovery, and telemetry. High-conversion White (`#FFFFFF`) is **strictly isolated to "Add to Cart" and Checkout pathways** to preserve maximum psychological contrast and conversion pull over near-black surfaces.
 
 ---
 
@@ -23,43 +23,43 @@ ClutchGear is engineered for esports enthusiasts and hardware purists who demand
 +---------------------------------------------------------------------------------------------+
 |                                     COLOR SPECTRUM                                          |
 |                                                                                             |
-|   #080811       #0F0F23       #14142B       #00F0FF       #E11D48       #F8FAFC         |
-|  Deep Void     Base Canvas   Surface Card    Elec Cyan    Action Rose   Primary Text        |
+|   #050505       #0A0A0A       #121212       #A3FF12       #FFFFFF       #F8FAFC         |
+|  Deep Void     Base Canvas   Surface Card   Acid Green    White Buy    Primary Text         |
 +---------------------------------------------------------------------------------------------+
 ```
 
-### 2.1 Backgrounds & Surfaces
+### 2.1 Backgrounds & Surfaces (Near-Black Surfaces)
 | Token | Hex / Value | Purpose |
 | :--- | :--- | :--- |
-| `--bg-void` | `#080811` | 3D Canvas base & deepest viewport background |
-| `--bg-canvas` | `#0F0F23` | Main application backdrop & page body |
-| `--surface-1` | `#14142B` | Primary cards, configurator container, docked navbar |
-| `--surface-2` | `#1D1D3A` | Nested components, input fields, inactive swatch chips |
-| `--surface-3` | `#26264D` | Active selection pills, elevated popovers, tooltips |
-| `--surface-glass` | `rgba(20, 20, 43, 0.72)` | Translucent overlays (`backdrop-filter: blur(16px)`) |
+| `--bg-void` | `#050505` | 3D Canvas base & deepest viewport background |
+| `--bg-canvas` | `#0A0A0A` | Main application backdrop & page body |
+| `--surface-1` | `#121212` | Primary cards, configurator container, docked navbar |
+| `--surface-2` | `#1A1A1A` | Nested components, input fields, inactive swatch chips |
+| `--surface-3` | `#242424` | Active selection pills, elevated popovers, tooltips |
+| `--surface-glass` | `rgba(18, 18, 18, 0.75)` | Translucent overlays (`backdrop-filter: blur(16px)`) |
 | `--border-subtle` | `rgba(255, 255, 255, 0.08)` | Default card and divider borders |
 | `--border-strong` | `rgba(255, 255, 255, 0.16)` | Active card borders, modal edges |
-| `--border-accent` | `rgba(0, 240, 255, 0.40)` | Interactive focus states & selected configurator tiles |
+| `--border-accent` | `rgba(163, 255, 18, 0.40)` | Interactive focus states & selected configurator tiles |
 
-### 2.2 Brand & Interactive Accents (Electric Cyan)
-*Designed to complement obsidian black and electric blue gaming hardware.*
+### 2.2 Brand & Interactive Accents (Acid Green)
+*Designed to complement obsidian black and competition gaming hardware.*
 | Token | Hex / Value | Purpose |
 | :--- | :--- | :--- |
-| `--cyan-500` (Main) | `#00F0FF` | Primary brand accent, selected radio rings, key icons, badges |
-| `--cyan-400` (Hover) | `#38F9FF` | Button hover state, interactive link hover |
-| `--cyan-600` (Deep) | `#00C2CF` | Pressed/active button state |
-| `--cyan-tint` | `rgba(0, 240, 255, 0.10)` | Chip backgrounds, subtle active state fills |
-| `--cyan-glow` | `0 0 16px rgba(0, 240, 255, 0.35)` | Micro-glow on active status indicators (never over 3D viewer) |
+| `--accent` (Main) | `#A3FF12` | Primary brand accent, selected radio rings, key icons, badges |
+| `--accent-hover` | `#B5FF3B` | Button hover state, interactive link hover |
+| `--accent-active` | `#8FE600` | Pressed/active button state |
+| `--accent-tint` | `rgba(163, 255, 18, 0.10)` | Chip backgrounds, subtle active state fills |
+| `--accent-glow` | `0 0 16px rgba(163, 255, 18, 0.35)` | Micro-glow on active status indicators (never over 3D viewer) |
 
-### 2.3 High-Conversion Actions (Action Rose)
-*Strict reservation rule: NEVER use this color for badges, informational tags, or secondary buttons.*
+### 2.3 High-Conversion Actions (White Buy Button)
+*Strict reservation rule: Isolated to "Add to Cart" and Checkout purchase pathways.*
 | Token | Hex / Value | Purpose |
 | :--- | :--- | :--- |
-| `--rose-600` (Base) | `#E11D48` | Primary "Add to Cart" and "Proceed to Checkout" buttons |
-| `--rose-500` (Hover) | `#F43F5E` | Hover state for checkout buttons & promotional banner badge |
-| `--rose-700` (Active) | `#BE123C` | Active/pressed state for checkout actions |
-| `--rose-tint` | `rgba(225, 29, 72, 0.12)` | Subtle discount tag background |
-| `--rose-aura` | `0 8px 24px rgba(225, 29, 72, 0.38)` | Ambient elevation glow on primary checkout button |
+| `--buy-bg` (Base) | `#FFFFFF` | Primary "Add to Cart" and "Proceed to Checkout" buttons |
+| `--buy-hover` | `#E5E5E5` | Hover state for checkout buttons |
+| `--buy-active` | `#D4D4D4` | Active/pressed state for checkout actions |
+| `--buy-text` | `#050505` | High-contrast dark text on white button |
+| `--buy-aura` | `0 8px 24px rgba(255, 255, 255, 0.25)` | Ambient elevation glow on primary checkout button |
 
 ### 2.4 Typography & Telemetry Neutrals
 | Token | Hex / Value | Purpose |
@@ -67,8 +67,8 @@ ClutchGear is engineered for esports enthusiasts and hardware purists who demand
 | `--text-primary` | `#F8FAFC` | Main headings, feature titles, product names, price values |
 | `--text-secondary` | `#94A3B8` | Body descriptions, technical spec labels, inactive links |
 | `--text-muted` | `#64748B` | Footnotes, helper text, disabled states |
-| `--text-on-cyan` | `#080811` | Text on `--cyan-500` buttons (guarantees WCAG AAA compliance) |
-| `--text-on-rose` | `#FFFFFF` | Text on `--rose-600` and `--rose-500` buttons (WCAG AA compliant) |
+| `--text-on-accent` | `#050505` | Text on `--accent` buttons (guarantees WCAG AAA compliance) |
+| `--text-on-buy` | `#050505` | Text on `--buy-bg` buttons (WCAG AAA compliant) |
 
 ---
 
@@ -80,14 +80,12 @@ $$\text{Contrast Ratio} = \frac{L_1 + 0.05}{L_2 + 0.05}$$
 
 | Foreground Token | Background Token | Calculated Ratio | WCAG AA Status | WCAG AAA Status | Usage Rules |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `--text-primary` (`#F8FAFC`) | `--bg-canvas` (`#0F0F23`) | **17.22 : 1** | PASS (Min 4.5:1) | PASS (Min 7.0:1) | Headings, hero labels, key text |
-| `--text-primary` (`#F8FAFC`) | `--surface-1` (`#14142B`) | **16.45 : 1** | PASS (Min 4.5:1) | PASS (Min 7.0:1) | Card headings, configurator titles |
-| `--text-secondary` (`#94A3B8`)| `--bg-canvas` (`#0F0F23`) | **7.36 : 1** | PASS (Min 4.5:1) | PASS (Min 7.0:1) | Body text, specs, meta info |
-| `--cyan-500` (`#00F0FF`) | `--bg-canvas` (`#0F0F23`) | **13.40 : 1** | PASS (Min 4.5:1) | PASS (Min 7.0:1) | Accent badges, telemetry labels |
-| `--text-on-cyan` (`#080811`)| `--cyan-500` (`#00F0FF`) | **14.16 : 1** | PASS (Min 4.5:1) | PASS (Min 7.0:1) | **CRITICAL:** Dark text on Cyan buttons |
-| `Pure White` (`#FFFFFF`) | `--cyan-500` (`#00F0FF`) | **1.41 : 1** | **FAIL (DO NOT USE)** | **FAIL** | White on cyan is forbidden |
-| `--text-on-rose` (`#FFFFFF`)| `--rose-600` (`#E11D48`) | **4.70 : 1** | PASS (Normal & Bold) | PASS (Bold $\ge$ 18pt) | Add to Cart / Checkout buttons |
-| `--text-on-rose` (`#FFFFFF`)| `--rose-500` (`#F43F5E`) | **3.67 : 1** | PASS (Bold $\ge$ 14pt) | FAIL for < 14pt | Hover state & bold CTA text ($\ge$ 16px bold) |
+| `--text-primary` (`#F8FAFC`) | `--bg-canvas` (`#0A0A0A`) | **19.12 : 1** | PASS (Min 4.5:1) | PASS (Min 7.0:1) | Headings, hero labels, key text |
+| `--text-primary` (`#F8FAFC`) | `--surface-1` (`#121212`) | **17.85 : 1** | PASS (Min 4.5:1) | PASS (Min 7.0:1) | Card headings, configurator titles |
+| `--text-secondary` (`#94A3B8`)| `--bg-canvas` (`#0A0A0A`) | **8.12 : 1** | PASS (Min 4.5:1) | PASS (Min 7.0:1) | Body text, specs, meta info |
+| `--accent` (`#A3FF12`) | `--bg-canvas` (`#0A0A0A`) | **15.20 : 1** | PASS (Min 4.5:1) | PASS (Min 7.0:1) | Accent badges, telemetry labels |
+| `--text-on-accent` (`#050505`)| `--accent` (`#A3FF12`) | **16.10 : 1** | PASS (Min 4.5:1) | PASS (Min 7.0:1) | **CRITICAL:** Dark text on Acid Green buttons |
+| `--text-on-buy` (`#050505`)| `--buy-bg` (`#FFFFFF`) | **20.40 : 1** | PASS (Normal & Bold) | PASS (Min 7.0:1) | Add to Cart / Checkout buttons |
 
 ---
 
@@ -155,15 +153,15 @@ box-shadow:
   0 20px 48px -4px rgba(0, 0, 0, 0.7),
   0 0 0 1px rgba(255, 255, 255, 0.12) inset;
 
-/* Focused Interactive Halo (Cyan) */
+/* Focused Interactive Halo (Acid Green) */
 box-shadow: 
-  0 0 0 2px #0F0F23, 
-  0 0 0 4px #00F0FF;
+  0 0 0 2px #0A0A0A, 
+  0 0 0 4px #A3FF12;
 
-/* Conversion Aura (Rose) */
+/* Conversion Aura (White Buy Button) */
 box-shadow: 
-  0 8px 24px -2px rgba(225, 29, 72, 0.40),
-  0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+  0 8px 24px -2px rgba(255, 255, 255, 0.30),
+  0 0 0 1px rgba(255, 255, 255, 0.4) inset;
 ```
 
 ---
@@ -173,28 +171,28 @@ box-shadow:
 ### 6.1 Buttons
 
 #### A. Conversion Primary ("Add to Cart" / "Checkout" ONLY)
-* **Visual:** Solid `#E11D48` background with subtle internal top highlight.
-* **Text:** `#FFFFFF`, `font-family: 'Chakra Petch'`, `font-weight: 700`, `letter-spacing: 0.04em`, uppercase.
+* **Visual:** Solid `#FFFFFF` background with high tactile contrast.
+* **Text:** `#050505`, `font-family: 'Chakra Petch'`, `font-weight: 700`, `letter-spacing: 0.04em`, uppercase.
 * **Height & Radius:** `52px` desktop / `48px` mobile, `border-radius: 10px`.
-* **Hover State:** Background shifts to `#F43F5E`, shadow adds `0 8px 24px rgba(225, 29, 72, 0.45)`, scale `1.015`.
-* **Active State:** Background `#BE123C`, scale `0.985`.
+* **Hover State:** Background shifts to `#E5E5E5`, shadow adds `0 8px 24px rgba(255, 255, 255, 0.35)`, scale `1.015`.
+* **Active State:** Background `#D4D4D4`, scale `0.985`.
 * **Transition:** `all 200ms cubic-bezier(0.16, 1, 0.3, 1)`.
 
 #### B. Accent Interactive Button (Configure, Explore 3D, Presets)
-* **Visual:** Solid `#00F0FF` background.
-* **Text:** `#080811` (Deep void black for 14.16:1 contrast!), `font-family: 'Chakra Petch'`, `font-weight: 700`.
-* **Hover State:** Background `#38F9FF`, subtle cyan ambient aura `0 0 20px rgba(0, 240, 255, 0.4)`.
-* **Active State:** Background `#00C2CF`, scale `0.985`.
+* **Visual:** Solid `#A3FF12` background.
+* **Text:** `#050505` (Deep void black for 16.10:1 contrast!), `font-family: 'Chakra Petch'`, `font-weight: 700`.
+* **Hover State:** Background `#B5FF3B`, subtle acid green ambient aura `0 0 20px rgba(163, 255, 18, 0.4)`.
+* **Active State:** Background `#8FE600`, scale `0.985`.
 
 #### C. Secondary / Surface Button (Spec Sheet, Compare, Share)
-* **Visual:** Background `#14142B`, border `1px solid rgba(255, 255, 255, 0.12)`.
+* **Visual:** Background `#121212`, border `1px solid rgba(255, 255, 255, 0.12)`.
 * **Text:** `#F8FAFC`, `font-family: 'Inter'`, `font-weight: 600`.
-* **Hover State:** Border color changes to `#00F0FF`, text color shifts to `#00F0FF`, background `#1D1D3A`.
+* **Hover State:** Border color changes to `#A3FF12`, text color shifts to `#A3FF12`, background `#1A1A1A`.
 
 #### D. 3D Viewer Floating Control Buttons (Orbit, Reset, Zoom, Wireframe)
-* **Visual:** 40x40px circle or rounded-8px square, background `rgba(15, 15, 35, 0.85)`, backdrop blur `12px`, border `1px solid rgba(255, 255, 255, 0.12)`.
+* **Visual:** 40x40px circle or rounded-8px square, background `rgba(18, 18, 18, 0.85)`, backdrop blur `12px`, border `1px solid rgba(255, 255, 255, 0.12)`.
 * **Icon:** 20px SVG (Lucide/Heroicons), stroke `#94A3B8`.
-* **Hover:** Stroke `#00F0FF`, border-color `#00F0FF`, background `#14142B`.
+* **Hover:** Stroke `#A3FF12`, border-color `#A3FF12`, background `#121212`.
 
 ---
 

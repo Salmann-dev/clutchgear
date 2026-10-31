@@ -8,7 +8,7 @@ export default function ShopLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex flex-col bg-bg-canvas text-text-primary selection:bg-cyan-500/20 selection:text-cyan-400">
+    <div className="min-h-screen flex flex-col bg-bg-canvas text-text-primary selection:bg-accent/20 selection:text-accent">
       <Navbar />
       <main className="flex-1 flex flex-col">{children}</main>
       <Footer />

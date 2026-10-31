@@ -7,9 +7,9 @@ export function Footer() {
     <footer className="mt-auto border-t border-white/10 bg-bg-void/90 relative">
       <div className="max-w-7xl mx-auto px-6 py-12 lg:py-16">
         {/* MANDATORY DISCLAIMER NOTE */}
-        <div className="mb-12 p-4 md:p-5 rounded-xl bg-surface-1/80 border border-cyan-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+        <div className="mb-12 p-4 md:p-5 rounded-xl bg-surface-1/80 border border-accent/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
           <div className="flex items-center gap-3.5">
-            <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shrink-0">
+            <div className="p-2 rounded-lg bg-accent/10 text-accent border border-accent/20 shrink-0">
               <ShieldAlert className="w-5 h-5" />
             </div>
             <div>
@@ -33,11 +33,11 @@ export function Footer() {
           {/* Brand Info */}
           <div className="space-y-4 md:col-span-1">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-md bg-surface-1 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+              <div className="w-7 h-7 rounded-md bg-surface-1 border border-accent/30 flex items-center justify-center text-accent">
                 <span className="font-heading font-black text-xs">CG</span>
               </div>
               <span className="font-heading font-extrabold text-lg tracking-wider text-text-primary">
-                CLUTCH<span className="text-cyan-500">GEAR</span>
+                CLUTCH<span className="text-accent">GEAR</span>
               </span>
             </div>
             <p className="text-xs text-text-secondary leading-relaxed font-body">
@@ -47,7 +47,7 @@ export function Footer() {
 
           {/* Peripherals */}
           <div>
-            <h4 className="text-xs font-heading font-bold uppercase tracking-wider text-cyan-400 mb-4">
+            <h4 className="text-xs font-heading font-bold uppercase tracking-wider text-accent mb-4">
               Hardware
             </h4>
             <ul className="space-y-2.5 text-xs text-text-secondary font-body">
@@ -76,7 +76,7 @@ export function Footer() {
 
           {/* Technology */}
           <div>
-            <h4 className="text-xs font-heading font-bold uppercase tracking-wider text-cyan-400 mb-4">
+            <h4 className="text-xs font-heading font-bold uppercase tracking-wider text-accent mb-4">
               Architecture
             </h4>
             <ul className="space-y-2.5 text-xs text-text-secondary font-body">
@@ -97,7 +97,7 @@ export function Footer() {
 
           {/* Telemetry Status */}
           <div>
-            <h4 className="text-xs font-heading font-bold uppercase tracking-wider text-cyan-400 mb-4">
+            <h4 className="text-xs font-heading font-bold uppercase tracking-wider text-accent mb-4">
               Telemetry Status
             </h4>
             <div className="p-3 rounded-lg bg-surface-1 border border-white/5 space-y-2">
@@ -107,11 +107,11 @@ export function Footer() {
               </div>
               <div className="flex items-center justify-between text-[11px]">
                 <span className="text-text-muted">3D Model Stream</span>
-                <span className="text-cyan-400 font-heading font-bold">READY (4.8MB)</span>
+                <span className="text-accent font-heading font-bold">READY (4.8MB)</span>
               </div>
               <div className="flex items-center justify-between text-[11px]">
                 <span className="text-text-muted">Color Palette</span>
-                <span className="text-text-secondary font-heading font-bold">CYAN / VOID</span>
+                <span className="text-text-secondary font-heading font-bold">ACID GREEN / VOID</span>
               </div>
             </div>
           </div>

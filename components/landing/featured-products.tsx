@@ -12,8 +12,8 @@ export function FeaturedProducts() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-              <span className="text-xs font-heading font-bold uppercase tracking-widest text-cyan-400">
+              <span className="w-2 h-2 rounded-full bg-accent animate-ping" />
+              <span className="text-xs font-heading font-bold uppercase tracking-widest text-accent">
                 PRO HARDWARE LINEUP
               </span>
             </div>
@@ -31,7 +31,7 @@ export function FeaturedProducts() {
           {FEATURED_PRODUCTS.map((product) => (
             <div
               key={product.id}
-              className="group rounded-2xl bg-surface-1/70 border border-white/10 hover:border-cyan-500/40 transition-all duration-300 p-6 flex flex-col justify-between shadow-[0_4px_24px_rgba(0,0,0,0.5)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.7)]"
+              className="group rounded-2xl bg-surface-1/70 border border-white/10 hover:border-accent/40 transition-all duration-300 p-6 flex flex-col justify-between shadow-[0_4px_24px_rgba(0,0,0,0.5)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.7)]"
             >
               <div>
                 {/* Header: Category & Badge */}
@@ -40,14 +40,14 @@ export function FeaturedProducts() {
                     {product.category}
                   </span>
                   {product.badge && (
-                    <Badge variant="cyan">{product.badge}</Badge>
+                    <Badge variant="accent">{product.badge}</Badge>
                   )}
                 </div>
 
                 {/* Peripheral Placeholder Frame */}
-                <div className="w-full h-48 rounded-xl bg-surface-2/60 border border-white/5 mb-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:border-cyan-500/20 transition-colors">
-                  <div className="w-16 h-16 rounded-2xl bg-surface-1 border border-white/10 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform duration-300 shadow-inner">
-                    <Eye className="w-8 h-8 text-cyan-400" />
+                <div className="w-full h-48 rounded-xl bg-surface-2/60 border border-white/5 mb-6 flex flex-col items-center justify-center relative overflow-hidden group-hover:border-accent/20 transition-colors">
+                  <div className="w-16 h-16 rounded-2xl bg-surface-1 border border-white/10 flex items-center justify-center text-accent group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                    <Eye className="w-8 h-8 text-accent" />
                   </div>
                   <span className="text-[11px] font-heading font-bold text-text-muted mt-3 uppercase tracking-widest">
                     3D VIEWPORT READY
@@ -60,7 +60,7 @@ export function FeaturedProducts() {
                 </div>
 
                 {/* Title & Tagline */}
-                <h3 className="text-xl font-heading font-bold text-text-primary group-hover:text-cyan-400 transition-colors">
+                <h3 className="text-xl font-heading font-bold text-text-primary group-hover:text-accent transition-colors">
                   {product.name}
                 </h3>
                 <p className="text-xs font-heading font-semibold text-text-muted mt-1 uppercase tracking-wide">
@@ -103,11 +103,11 @@ export function FeaturedProducts() {
 
                 <div className="flex items-center gap-2">
                   <Button variant="secondary" size="sm" title="Configure Specs">
-                    <SlidersHorizontal className="w-3.5 h-3.5 mr-1 text-cyan-400" />
+                    <SlidersHorizontal className="w-3.5 h-3.5 mr-1 text-accent" />
                     <span>SPEC</span>
                   </Button>
-                  {/* High-conversion button strictly using Action Rose as mandated by DESIGN_SYSTEM.md */}
-                  <Button variant="checkout" size="sm" title="Add to Cart">
+                  {/* High-conversion white buy button */}
+                  <Button variant="buy" size="sm" title="Add to Cart">
                     <ShoppingCart className="w-3.5 h-3.5 mr-1" />
                     <span>ADD</span>
                   </Button>
