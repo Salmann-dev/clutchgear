@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as THREE from "three";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import {
   useGLTF,
   OrbitControls,
@@ -16,6 +16,7 @@ import {
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { RotateCcw, ZoomIn, ZoomOut, ShieldAlert, RefreshCw, Box } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ConfiguratorState } from "./configurator/configurator-types";
 
 export interface ModelTelemetryDetails {
   nodes: string[];
@@ -27,6 +28,7 @@ export interface ModelTelemetryDetails {
 export interface ProductViewerProps {
   modelUrl: string;
   className?: string;
+  config?: ConfiguratorState;
   onModelLogged?: (details: ModelTelemetryDetails) => void;
 }
 
@@ -182,21 +184,111 @@ function ViewerLoader() {
 }
 
 /**
- * Model component loading Draco-compressed GLB and logging all mesh & material details.
+ * Model component loading Draco-compressed GLB, logging hierarchy, and applying custom shader patch.
  */
 function ModelMesh({
   url,
   onModelLogged,
+  config,
+  prefersReducedMotion,
 }: {
   url: string;
   onModelLogged?: (details: ModelTelemetryDetails) => void;
+  config?: ConfiguratorState;
+  prefersReducedMotion?: boolean;
 }) {
-  // Pass '/draco/' for local Draco WASM decoding fallback, fully supported by Drei's useGLTF
   const { scene } = useGLTF(url, "/draco/");
   const loggedRef = React.useRef(false);
+  const materialRef = React.useRef<THREE.MeshStandardMaterial | null>(null);
 
+  // Persistent custom uniforms for the patched shader
+  const uniformsRef = React.useRef({
+    uAccentColor: { value: new THREE.Color("#A3FF12") },
+    uIsOriginal: { value: 0.0 },
+    uEmissiveStrength: { value: 0.22 },
+  });
+
+  // Attach onBeforeCompile shader customization once on load
   React.useEffect(() => {
-    if (!scene || loggedRef.current) return;
+    if (!scene) return;
+
+    scene.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+        const mat = mesh.material as THREE.MeshStandardMaterial;
+
+        if (mat && !mat.userData.clutchPatched) {
+          mat.userData.clutchPatched = true;
+          materialRef.current = mat;
+
+          // Note 3: customProgramCacheKey ensures shader compiles once and is cached correctly
+          mat.customProgramCacheKey = () => "clutchgear-accent-patch-v1";
+
+          mat.onBeforeCompile = (shader) => {
+            // Bind uniforms
+            shader.uniforms.uAccentColor = uniformsRef.current.uAccentColor;
+            shader.uniforms.uIsOriginal = uniformsRef.current.uIsOriginal;
+            shader.uniforms.uEmissiveStrength = uniformsRef.current.uEmissiveStrength;
+
+            // Inject uniform declarations into fragment shader header
+            shader.fragmentShader = `
+              uniform vec3 uAccentColor;
+              uniform float uIsOriginal;
+              uniform float uEmissiveStrength;
+              ${shader.fragmentShader}
+            `;
+
+            // Patch diffuse sampling in map_fragment with blue accent detection and tuned recoloring
+            shader.fragmentShader = shader.fragmentShader.replace(
+              "#include <map_fragment>",
+              `
+              #ifdef USE_MAP
+                vec4 sampledDiffuseColor = texture2D( map, vMapUv );
+                #ifdef DECODE_VIDEO_TEXTURE
+                  sampledDiffuseColor = vec4( mix( pow( sampledDiffuseColor.rgb + vec3( 0.055 ), vec3( 2.4 ) ) * ( 1.0 / 1.055 ), sampledDiffuseColor.rgb * ( 1.0 / 12.92 ), lessThan( sampledDiffuseColor.rgb, vec3( 0.04045 ) ) ), sampledDiffuseColor.a );
+                #endif
+
+                // Note 1: Detect blue accent pixels in linear color space.
+                // In linear space, blue channel is dominant over max(red, green) by >= 0.018.
+                float blueDiff = sampledDiffuseColor.b - max(sampledDiffuseColor.r, sampledDiffuseColor.g);
+                float blueMask = smoothstep(0.018, 0.055, blueDiff) * step(0.02, sampledDiffuseColor.b);
+
+                // Note 2: Preserve original texture detail and shadows while normalizing brightness
+                // across Acid Green, White, and Red swatches so none are blown out or muddy.
+                float lum = dot(sampledDiffuseColor.rgb, vec3(0.2126, 0.7152, 0.0722));
+                float detail = clamp(lum / 0.065, 0.35, 2.4);
+
+                // Tuned balanced brightness curve
+                vec3 recoloredAccent = uAccentColor * (0.82 + 0.38 * (detail - 1.0));
+
+                // If Original Blue is active, keep original texture
+                vec3 targetAccent = mix(recoloredAccent, sampledDiffuseColor.rgb, uIsOriginal);
+
+                // Blend recolored accent strictly over blue accent pixels
+                sampledDiffuseColor.rgb = mix(sampledDiffuseColor.rgb, targetAccent, blueMask);
+
+                diffuseColor *= sampledDiffuseColor;
+              #endif
+              `
+            );
+
+            // Patch emissivemap_fragment to add gentle luminescence strictly to the accent areas
+            shader.fragmentShader = shader.fragmentShader.replace(
+              "#include <emissivemap_fragment>",
+              `
+              #include <emissivemap_fragment>
+              vec3 activeGlow = mix(uAccentColor, vec3(0.0, 0.55, 1.0), uIsOriginal);
+              totalEmissiveRadiance += activeGlow * (blueMask * uEmissiveStrength);
+              `
+            );
+          };
+
+          mat.needsUpdate = true;
+        }
+      }
+    });
+
+    if (loggedRef.current) return;
     loggedRef.current = true;
 
     const nodesList: string[] = [];
@@ -231,7 +323,6 @@ function ModelMesh({
           }
         );
 
-        // Enable shadow generation and reception for hyper-realistic hardware render
         mesh.castShadow = true;
         mesh.receiveShadow = true;
 
@@ -260,22 +351,18 @@ function ModelMesh({
             if (stdMat.map) {
               const texName = stdMat.map.name || "baseColorTexture";
               texturesList.push(`Base Color Map: ${texName}`);
-              console.log(`    ↳ Texture (BaseColor / Albedo): "${texName}"`, stdMat.map);
             }
             if (stdMat.normalMap) {
               const texName = stdMat.normalMap.name || "normalTexture";
               texturesList.push(`Normal Map: ${texName}`);
-              console.log(`    ↳ Texture (Normal Map): "${texName}"`, stdMat.normalMap);
             }
             if (stdMat.metalnessMap) {
               const texName = stdMat.metalnessMap.name || "metallicRoughnessTexture";
               texturesList.push(`Metallic Map: ${texName}`);
-              console.log(`    ↳ Texture (Metallic Map): "${texName}"`, stdMat.metalnessMap);
             }
             if (stdMat.roughnessMap && stdMat.roughnessMap !== stdMat.metalnessMap) {
               const texName = stdMat.roughnessMap.name || "roughnessTexture";
               texturesList.push(`Roughness Map: ${texName}`);
-              console.log(`    ↳ Texture (Roughness Map): "${texName}"`, stdMat.roughnessMap);
             }
           }
         });
@@ -306,6 +393,63 @@ function ModelMesh({
       textures: uniqueTextures,
     });
   }, [scene, url, onModelLogged]);
+
+  // Persistent scratch color for frame calculations (zero garbage collection)
+  const targetColor = React.useMemo(() => new THREE.Color(), []);
+
+  // Frame loop: smooth ~300ms delta lerp and RGB cycling with zero material cloning
+  useFrame((state, delta) => {
+    let targetEmissive = 0.22;
+    let targetIsOriginal = 0.0;
+
+    if (config?.rgbEnabled) {
+      if (prefersReducedMotion) {
+        // Respect prefers-reduced-motion: freeze to static high-contrast hue
+        targetColor.set("#A3FF12");
+      } else {
+        const hue = (state.clock.elapsedTime * 0.15) % 1.0;
+        targetColor.setHSL(hue, 0.95, 0.55);
+      }
+      targetEmissive = 0.85;
+      targetIsOriginal = 0.0;
+    } else {
+      targetColor.set(config?.accentHex || "#A3FF12");
+      targetEmissive = 0.22;
+      targetIsOriginal = config?.isOriginal ? 1.0 : 0.0;
+    }
+
+    // 1 - exp(-10 * delta) gives ~95% convergence in 300ms
+    const lerpFactor = 1 - Math.exp(-10 * Math.min(delta, 0.1));
+
+    uniformsRef.current.uAccentColor.value.lerp(targetColor, lerpFactor);
+    uniformsRef.current.uEmissiveStrength.value = THREE.MathUtils.lerp(
+      uniformsRef.current.uEmissiveStrength.value,
+      targetEmissive,
+      lerpFactor
+    );
+    uniformsRef.current.uIsOriginal.value = THREE.MathUtils.lerp(
+      uniformsRef.current.uIsOriginal.value,
+      targetIsOriginal,
+      lerpFactor
+    );
+
+    // Smooth tactile finish interpolation (roughness & environment reflection)
+    if (materialRef.current) {
+      const targetRoughness = config?.finish === "glossy" ? 0.22 : 0.85;
+      const targetEnv = config?.finish === "glossy" ? 1.6 : 0.5;
+
+      materialRef.current.roughness = THREE.MathUtils.lerp(
+        materialRef.current.roughness,
+        targetRoughness,
+        lerpFactor
+      );
+      materialRef.current.envMapIntensity = THREE.MathUtils.lerp(
+        materialRef.current.envMapIntensity,
+        targetEnv,
+        lerpFactor
+      );
+    }
+  });
 
   return <primitive object={scene} />;
 }
@@ -400,11 +544,13 @@ function BoundsController({
 function ViewerScene({
   url,
   onModelLogged,
+  config,
   setControlsApi,
   prefersReducedMotion,
 }: {
   url: string;
   onModelLogged?: (details: ModelTelemetryDetails) => void;
+  config?: ConfiguratorState;
   setControlsApi: (api: ControlsAPI) => void;
   prefersReducedMotion: boolean;
 }) {
@@ -458,7 +604,12 @@ function ViewerScene({
           controlsRef={controlsRef}
         />
         <Center top>
-          <ModelMesh url={url} onModelLogged={onModelLogged} />
+          <ModelMesh
+            url={url}
+            onModelLogged={onModelLogged}
+            config={config}
+            prefersReducedMotion={prefersReducedMotion}
+          />
         </Center>
       </Bounds>
 
@@ -472,7 +623,7 @@ function ViewerScene({
         color="#000000"
       />
 
-      {/* OrbitControls: damped, no panning, polar limits, strictly no auto-rotation if reduced-motion */}
+      {/* OrbitControls: damped, no panning, polar limits */}
       <OrbitControls
         ref={controlsRef}
         makeDefault
@@ -493,6 +644,7 @@ function ViewerScene({
 export function ProductViewer({
   modelUrl,
   className,
+  config,
   onModelLogged,
 }: ProductViewerProps) {
   const [controlsApi, setControlsApi] = React.useState<ControlsAPI | null>(null);
@@ -594,6 +746,7 @@ export function ProductViewer({
             <ViewerScene
               url={modelUrl}
               onModelLogged={onModelLogged}
+              config={config}
               setControlsApi={setControlsApi}
               prefersReducedMotion={prefersReducedMotion}
             />
